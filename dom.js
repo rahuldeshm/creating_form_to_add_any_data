@@ -2,6 +2,7 @@ const labelinputfield = document.querySelector('#lebalvalue');
 const typefield = document.querySelector("#inputType")
 const form = document.querySelector("#div2");
 var count=1;
+var localkey = 100;
 labelinputfield.addEventListener("keyup",(e)=>{
     // e.preventDefault();
     // console.log(labelinputfield.value)
@@ -60,34 +61,54 @@ function enterchoosedvalue(e){
         for (let i =count-1;i>0;i--){
             obj[document.getElementById(i+10).textContent]=document.getElementById(i).value;
         }
+        obj['button']=document.getElementById('submit').value
         // console.log(preid.value)
         // console.log(prelbl.textContent)
-        console.log(obj)
+        // console.log(obj)
+        // console.log(localkey)
+        obj["keyid"]=localkey;
+        localkey++
+        localStorage.setItem(localkey,JSON.stringify(obj));
         showOnScreen(obj);
         // form.innerHTML=""
     }
     
 }
+
 function showOnScreen(obj){
+    console.log(obj)
     const parentEme=document.getElementById('div3')
     const childEle=document.createElement('div')
-    let innht = "data"
+    let innht = "DATA :"
     let objkeys = Object.keys(obj)
     for (let i = 0; i<objkeys.length;i++){
-        innht=innht+`+${objkeys[i]}: ${obj[objkeys[i]]} <br>`
+        innht=innht+`<br>${objkeys[i]}: ${obj[objkeys[i]]} `
     }
     childEle.id="diva"
-    childEle.innerHTML=innht
-    // const deleteButton=document.createElement('button')
+    childEle.innerHTML=innht+"<br>"
+    const deleteButton=document.createElement('button')
     // deleteButton.id=obj._id 
-    // deleteButton.value='delete message'
-    // deleteButton.className = "dbtn"
-    // deleteButton.onclick =() => {
-      // localStorage.removeItem(obj.mail)
-    //   parentEme.removeChild(childEle)
+    deleteButton.textContent='delete data'
+    deleteButton.className = "dbtn"
+    deleteButton.onclick =() => {
+      localStorage.removeItem(obj["keyid"])
+      parentEme.removeChild(childEle)
       // delete api not written//
-    // }
-    // childEle.appendChild(deleteButton)
+    }
+    childEle.appendChild(deleteButton)
     parentEme.appendChild(childEle)
-    console.log(parentEme)
+    // console.log(parentEme)
+}
+document.addEventListener("DOMContentLoaded",showlocaldata);
+function showlocaldata(){
+    let keys = Object.keys(localStorage);
+    console.log(localkey)
+    localkey=parseInt(keys[0])+1
+    // localkey= parseInt(keys[0])
+    console.log(localkey)
+    for (let i = 0 ;i<keys.length;i++){
+        let parseobj = JSON.parse(localStorage.getItem(keys[i]))
+        showOnScreen(parseobj);
+    }
+
 }

@@ -17,17 +17,31 @@ border: 1px solid #ccc;
     padding: 3rem 2rem;
   }
 #div2 , #div3{
+  text-align: center;
   margin: auto;
   width: 90%;
   background-color: #f4f4f4;
   border: 3px solid #ccc;
 }
+.ebtn,.dbtn{
+  margin-bottom: 7px;
+  height: 30px;
+  width:45%;
+  border-radius: 10px;
+
+}
+.dbtn{
+  background-color: red;
+}
+.ebtn{
+  background-color: green;
+}
 #diva{
-  margin:5px;
+  margin:10px;
   width: 100%;
   background-color: rgb(144, 144, 241);
   border: 2px solid #ebf0ef;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 #submit{
     margin: auto;
